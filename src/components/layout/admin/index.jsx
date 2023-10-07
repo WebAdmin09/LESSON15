@@ -21,7 +21,6 @@ const AdminLayout = () => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
-    console.log(location);
     return (
         <Layout className="admin-layout">
             <Sider trigger={null} collapsible collapsed={collapsed}>

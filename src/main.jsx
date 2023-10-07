@@ -4,6 +4,7 @@ import App from './App.jsx'
 import StoreProvider from './redux/store'
 
 import 'antd/dist/reset.css'
+import '@ant-design/icons'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(

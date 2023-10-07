@@ -32,7 +32,6 @@ const HomePage = () => {
         try {
             let user = { username: usernamevalue, password: passwordvalue }
             let { data } = await request.post('auth/login', user)
-            console.log(data);
             if (data.user.role === 'admin') {
                 navigate('/dashboard')
                 Cookies.set(TOKEN, data.token)
