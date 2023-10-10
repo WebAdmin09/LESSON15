@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit"
 import { Provider } from "react-redux"
 import PropTypes from 'prop-types'
 import skillReducer from "../slices/skillSlice";
+import authReducer from "../slices/authSlice";
 
 
 const reducer = {
-    skill: skillReducer
+    skill: skillReducer,
+    auth: authReducer,
 }
 
 export const Store = configureStore({ reducer });

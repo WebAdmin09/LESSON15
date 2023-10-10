@@ -1,9 +1,11 @@
 import { message } from 'antd'
 import Cookies from 'js-cookie'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import request from '../../api'
 import { TOKEN } from '../../constants'
+import { controlAuthenticated } from '../../redux/slices/authSlice'
 import './HomePage.scss'
 
 const HomePage = () => {
@@ -28,12 +30,14 @@ const HomePage = () => {
         e.preventDefault();
     }
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const login = async () => {
         try {
             let user = { username: usernamevalue, password: passwordvalue }
             let { data } = await request.post('auth/login', user)
             if (data.user.role === 'admin') {
                 navigate('/dashboard')
+                dispatch(controlAuthenticated(true))
                 Cookies.set(TOKEN, data.token)
             } else {
                 message.error('You are not Admin')

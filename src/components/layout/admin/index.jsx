@@ -4,23 +4,36 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    UploadOutlined,
+    TeamOutlined,
     UserOutlined,
+    MehOutlined,
     VideoCameraOutlined,
+    LoginOutlined,
 } from "@ant-design/icons";
 
 import "./adminlayout.scss";
 
 import { Layout, Menu, Button, theme } from "antd";
+import Cookies from "js-cookie";
+import { TOKEN } from "../../../constants";
+import { useDispatch } from "react-redux";
+import { controlAuthenticated } from "../../../redux/slices/authSlice";
+
 
 const { Header, Sider, Content } = Layout;
 const AdminLayout = () => {
 
+    const dispatch = useDispatch()
     const location = useLocation();
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+
+    const logout = () => {
+        Cookies.remove(TOKEN);
+        dispatch(controlAuthenticated(false))
+    }
     return (
         <Layout className="admin-layout">
             <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -42,8 +55,17 @@ const AdminLayout = () => {
                         },
                         {
                             key: "/users",
-                            icon: <UploadOutlined />,
+                            icon: <TeamOutlined />,
                             label: <Link to="/users">Users</Link>,
+                        },
+                        {
+                            key: "/portfolios",
+                            icon: <MehOutlined />,
+                            label: <Link to="/portfolios">Portfolios</Link>,
+                        },
+                        {
+                            icon: <LoginOutlined />,
+                            label: <Button danger to="/" onClick={logout} >Log out</Button>,
                         },
                     ]}
                 />

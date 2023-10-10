@@ -1,7 +1,6 @@
-import { Fragment } from "react";
+import { useEffect } from "react";
 import { Button, Form, Input, message, Modal, Space, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import {
     addSkill,
     deleteSkill,
@@ -14,14 +13,15 @@ import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 const SkillsPage = () => {
     const dispatch = useDispatch();
-
     const [form] = Form.useForm();
-
-    const { skills, isModalOpen, selected, loading } = useSelector((state) => state.skill);
+    const { skills, isModalOpen, selected, loading } = useSelector(
+        (state) => state.skill
+    );
 
     useEffect(() => {
         dispatch(getSkills());
-    }, [dispatch])
+    }, [dispatch]);
+
     const columns = [
         {
             title: "Name",
@@ -56,9 +56,11 @@ const SkillsPage = () => {
             },
         },
     ];
+
     const Cancel = () => {
         dispatch(manageModal());
     };
+
     const handleOk = async () => {
         try {
             let values = await form.validateFields();
@@ -68,8 +70,9 @@ const SkillsPage = () => {
             message.error("It is wrong action");
         }
     };
+
     return (
-        <Fragment>
+        <div>
             <Table
                 loading={loading}
                 bordered
@@ -92,7 +95,7 @@ const SkillsPage = () => {
             />
             <Modal
                 title="Skill data"
-                open={isModalOpen}
+                visible={isModalOpen}
                 onOk={handleOk}
                 onCancel={Cancel}
                 okText={selected ? "Save skill" : "Add skill"}
@@ -137,7 +140,7 @@ const SkillsPage = () => {
                     </Form.Item>
                 </Form>
             </Modal>
-        </Fragment>
+        </div>
     );
 };
 
