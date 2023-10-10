@@ -6,7 +6,9 @@ import {
     useGetPortfolioMutation,
     useGetPortfoliosQuery,
     useUpdatePortfolioMutation,
-} from "../../redux/services/portfolioService";
+} from "../../../redux/services/PortfolioServices";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import './Portfolio.scss'
 
 const PortfoliosPage = () => {
     const [form] = Form.useForm();
@@ -48,7 +50,7 @@ const PortfoliosPage = () => {
                 return (
                     <Space size="middle">
                         <Button type="primary" onClick={() => editPortfolio(row._id)}>
-                            Edit
+                            <EditOutlined />
                         </Button>
                         <Button
                             danger
@@ -58,7 +60,7 @@ const PortfoliosPage = () => {
                                 refetch();
                             }}
                         >
-                            Delete
+                            <DeleteOutlined />
                         </Button>
                     </Space>
                 );
@@ -115,9 +117,10 @@ const PortfoliosPage = () => {
                             alignItems: "center",
                         }}
                     >
-                        <h1>Portfolios ({data?.pagination.total})</h1>
+                        <h1>Portfolios</h1>
+                        <span className="spantotal">Total:({data?.pagination.total})</span>
                         <Button type="primary" onClick={openModal}>
-                            Add portfolio
+                            <PlusOutlined />
                         </Button>
                     </div>
                 )}
@@ -158,7 +161,7 @@ const PortfoliosPage = () => {
                         rules={[
                             {
                                 required: true,
-                                message: "Please fill !",
+                                message: "Don't forget Fill  !",
                             },
                         ]}
                     >
@@ -170,7 +173,7 @@ const PortfoliosPage = () => {
                         rules={[
                             {
                                 required: true,
-                                message: "Please fill!",
+                                message: "Don't forget Fill !",
                             },
                         ]}
                     >
@@ -182,7 +185,7 @@ const PortfoliosPage = () => {
                         rules={[
                             {
                                 required: true,
-                                message: "Please fill!",
+                                message: "Don't forget Fill !",
                             },
                         ]}
                     >

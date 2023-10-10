@@ -84,7 +84,8 @@ const SkillsPage = () => {
                             alignItems: "center",
                         }}
                     >
-                        <h1>Skills ({skills.length})</h1>
+                        <h1>Skills</h1>
+                        <span className="spantotal">Total:({skills.length})</span>
                         <Button onClick={() => dispatch(showModal(form))} type="primary">
                             <PlusOutlined />
                         </Button>
