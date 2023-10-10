@@ -11,9 +11,7 @@ const reducer = {
 export const Store = configureStore({ reducer });
 
 const StoreProvider = ({ children }) => {
-    return (
-        <Provider store={Store}>{children}</Provider>
-    )
+    return <Provider store={Store}>{children}</Provider>
 }
 
 StoreProvider.propTypes = {

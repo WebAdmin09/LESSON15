@@ -1,15 +1,27 @@
-import { Button, Form, Input, message, Modal, Space, Table } from "antd"
-import { Fragment } from "react"
+import { Fragment } from "react";
+import { Button, Form, Input, message, Modal, Space, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { addSkill, deleteSkill, editSkill, manageModal, showModal } from "../../../redux/slices/skillSlice";
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+import { useEffect } from "react";
+import {
+    addSkill,
+    deleteSkill,
+    editSkill,
+    getSkills,
+    manageModal,
+    showModal,
+} from "../../../redux/slices/skillSlice";
+import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 const SkillsPage = () => {
     const dispatch = useDispatch();
 
     const [form] = Form.useForm();
 
-    const { skills, isModalOpen } = useSelector((state) => state.skill)
+    const { skills, isModalOpen, selected, loading } = useSelector((state) => state.skill);
+
+    useEffect(() => {
+        dispatch(getSkills());
+    }, [dispatch])
     const columns = [
         {
             title: "Name",
@@ -26,10 +38,17 @@ const SkillsPage = () => {
             render: (_, row) => {
                 return (
                     <Space size="middle">
-                        <Button type="primary" onClick={() => dispatch(editSkill(row.id))}>
+                        <Button
+                            type="primary"
+                            onClick={() => dispatch(editSkill({ id: row.id, form }))}
+                        >
                             <EditOutlined />
                         </Button>
-                        <Button danger type="primary" onClick={() => dispatch(deleteSkill(row.id))}>
+                        <Button
+                            danger
+                            type="primary"
+                            onClick={() => dispatch(deleteSkill(row.id))}
+                        >
                             <DeleteOutlined />
                         </Button>
                     </Space>
@@ -38,21 +57,21 @@ const SkillsPage = () => {
         },
     ];
     const Cancel = () => {
-        dispatch(manageModal())
-    }
+        dispatch(manageModal());
+    };
     const handleOk = async () => {
         try {
-            let values = await form.validateFields()
-            dispatch(addSkill(values))
-            Cancel()
+            let values = await form.validateFields();
+            dispatch(addSkill(values));
+            Cancel();
         } catch (error) {
-            message.error('It is wrong action')
+            message.error("It is wrong action");
         }
-    }
+    };
     return (
         <Fragment>
             <Table
-                // loading={loading}
+                loading={loading}
                 bordered
                 title={() => (
                     <div
@@ -62,8 +81,8 @@ const SkillsPage = () => {
                             alignItems: "center",
                         }}
                     >
-                        <h1>Categories ({skills.length})</h1>
-                        <Button onClick={() => dispatch(showModal())} type="primary">
+                        <h1>Skills ({skills.length})</h1>
+                        <Button onClick={() => dispatch(showModal(form))} type="primary">
                             <PlusOutlined />
                         </Button>
                     </div>
@@ -75,9 +94,8 @@ const SkillsPage = () => {
                 title="Skill data"
                 open={isModalOpen}
                 onOk={handleOk}
-                // confirmLoading={btnLoading}
                 onCancel={Cancel}
-                okText={"Add skill"}
+                okText={selected ? "Save skill" : "Add skill"}
             >
                 <Form
                     form={form}
@@ -120,7 +138,7 @@ const SkillsPage = () => {
                 </Form>
             </Modal>
         </Fragment>
-    )
-}
+    );
+};
 
-export default SkillsPage
+export default SkillsPage;
