@@ -83,6 +83,7 @@ const skillSlice = createSlice({
         editSkill(state, { payload }) {
             state.isModalOpen = true;
             state.selected = payload;
+            console.log(payload);
         },
     },
 

@@ -5,16 +5,18 @@ import {
     addSkill,
     deleteSkill,
     editSkill,
+    getSkill,
     getSkills,
     manageModal,
     showModal,
+    updateSkill,
 } from "../../../redux/slices/skillSlice";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 const SkillsPage = () => {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
-    const { skills, isModalOpen, selected, loading } = useSelector(
+    const { skills, isModalOpen, selected, loading, total } = useSelector(
         (state) => state.skill
     );
 
@@ -40,14 +42,24 @@ const SkillsPage = () => {
                     <Space size="middle">
                         <Button
                             type="primary"
-                            onClick={() => dispatch(editSkill({ id: row.id, form }))}
+                            onClick={async () => {
+                                await dispatch(getSkills())
+                                await dispatch(editSkill(row._id))
+                                let { payload } = await dispatch(getSkill(row._id))
+                                form.setFieldsValue(payload)
+                            }}
                         >
                             <EditOutlined />
                         </Button>
                         <Button
                             danger
                             type="primary"
-                            onClick={() => dispatch(deleteSkill(row.id))}
+                            onClick={async () => {
+                                await dispatch(deleteSkill(row._id))
+                                await dispatch(getSkills())
+                            }
+                            }
+
                         >
                             <DeleteOutlined />
                         </Button>
@@ -64,10 +76,15 @@ const SkillsPage = () => {
     const handleOk = async () => {
         try {
             let values = await form.validateFields();
-            dispatch(addSkill(values));
+            if (selected === null) {
+                await dispatch(addSkill(values));
+            } else {
+                await dispatch(updateSkill({ id: selected, values }));
+            }
             Cancel();
+            await dispatch(getSkills());
         } catch (error) {
-            message.error("It is wrong action");
+            message.error('It is wrong action')
         }
     };
 
@@ -85,7 +102,7 @@ const SkillsPage = () => {
                         }}
                     >
                         <h1>Skills</h1>
-                        <span className="spantotal">Total:({skills.length})</span>
+                        <span className="spantotal">Total:({total})</span>
                         <Button onClick={() => dispatch(showModal(form))} type="primary">
                             <PlusOutlined />
                         </Button>
@@ -96,7 +113,7 @@ const SkillsPage = () => {
             />
             <Modal
                 title="Skill data"
-                visible={isModalOpen}
+                open={isModalOpen}
                 onOk={handleOk}
                 onCancel={Cancel}
                 okText={selected ? "Save skill" : "Add skill"}
