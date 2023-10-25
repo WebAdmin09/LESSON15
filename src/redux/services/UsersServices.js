@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ENDPOINT, TOKEN } from "../../constants";
 import Cookies from "js-cookie";
 
-export const portfolioService = createApi({
-    reducerPath: "portfolio",
+export const userService = createApi({
+    reducerPath: "user",
     baseQuery: fetchBaseQuery({
         baseUrl: `${ENDPOINT}api/v1/`,
         prepareHeaders: (headers) => {
@@ -12,46 +12,44 @@ export const portfolioService = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getPortfolios: builder.query({
-            query: (page) => `portfolios?page=${page}`,
+        getUsers: builder.query({
+            query: (page) => `users?page=${page}`,
             transformResponse: (res) => res,
         }),
-        getPortfolio: builder.mutation({
+        getUser: builder.mutation({
             query: (id) => ({
-                url: `portfolios/${id}`,
+                url: `users/${id}`,
                 method: "GET",
             }),
         }),
-        addPortfolio: builder.mutation({
+        addUser: builder.mutation({
             query: (body) => ({
-                url: "portfolios",
+                url: "users",
                 method: "POST",
                 body,
             }),
         }),
-        updatePortfolio: builder.mutation({
+        updateUser: builder.mutation({
             query: ({ id, body }) => ({
-                url: `portfolios/${id}`,
+                url: `users/${id}`,
                 method: "PUT",
                 body,
             }),
         }),
-        deletePortfolio: builder.mutation({
+        deleteUser: builder.mutation({
             query: (id) => ({
-                url: `portfolios/${id}`,
+                url: `users/${id}`,
                 method: "DELETE",
             }),
         }),
     }),
 });
-
-
 export const {
-    useGetPortfoliosQuery,
-    useGetPortfolioMutation,
-    useAddPortfolioMutation,
-    useUpdatePortfolioMutation,
-    useDeletePortfolioMutation,
-} = portfolioService;
+    useGetUsersQuery,
+    useGetUserMutation,
+    useAddUserMutation,
+    useUpdateUserMutation,
+    useDeleteUserMutation,
+} = userService;
 
-export default portfolioService.reducer;
+export default userService.reducer;
