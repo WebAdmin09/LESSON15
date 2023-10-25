@@ -59,7 +59,6 @@ const SkillsPage = () => {
                                 await dispatch(getSkills())
                             }
                             }
-
                         >
                             <DeleteOutlined />
                         </Button>

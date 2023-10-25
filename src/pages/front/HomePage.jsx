@@ -7,7 +7,6 @@ import request from '../../api'
 import { TOKEN } from '../../constants'
 import { controlAuthenticated } from '../../redux/slices/authSlice'
 import './HomePage.scss'
-
 const HomePage = () => {
     window.addEventListener('keyup', (e) => {
         if (e.isComposing || e.keyCode === 32) {
@@ -77,5 +76,4 @@ const HomePage = () => {
         </div>
     )
 }
-
 export default HomePage
