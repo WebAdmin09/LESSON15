@@ -33,12 +33,18 @@ const HomePage = () => {
     const login = async () => {
         try {
             let user = { username: usernamevalue, password: passwordvalue }
-            let { data } = await request.post('auth/login', user)
+            let { data } = await request.post('auth/login', user);
+            console.log(data)
             if (data.user.role === 'admin') {
                 navigate('/dashboard')
                 dispatch(controlAuthenticated(true))
                 Cookies.set(TOKEN, data.token)
-            } else {
+                message.success('You are Admin')
+            } else if(data.user.role === 'user'){
+                navigate('/skills')
+
+            } 
+            else {
                 message.error('You are not Admin')
             }
         } catch (error) {
