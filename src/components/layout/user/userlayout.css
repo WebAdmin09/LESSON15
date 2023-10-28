@@ -1,0 +1,12 @@
+/* .userlayout{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+.user{
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+}

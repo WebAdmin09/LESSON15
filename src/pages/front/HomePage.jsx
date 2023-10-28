@@ -41,11 +41,13 @@ const HomePage = () => {
                 Cookies.set(TOKEN, data.token)
                 message.success('You are Admin')
             } else if(data.user.role === 'client'){
-                window.location.href = '/about'
+                Cookies.set(TOKEN, data.token)
+                Cookies.set('USERID', data.user._id)
+                window.location.href = '/userskills'
             } 
-            else if(data.user.role === 'user'){
-                window.location.href = '/userpanel'
-            }
+            // else if(data.user.role === 'user'){
+            //     window.location.href = '/userpanel'
+            // }
             else {
                 message.error('You are not Admin')
             }

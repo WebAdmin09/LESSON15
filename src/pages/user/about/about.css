@@ -1,0 +1,18 @@
+.progress__item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+    flex-direction: column;
+    width: 100%;
+    row-gap: 10px;
+}
+
+.progress {
+    width: 100%;
+    max-width: 200px;
+   min-height: 30px;
+}
+.progress__name{
+    color: rgb(226, 43, 43);
+    font-size: 20px;
+}

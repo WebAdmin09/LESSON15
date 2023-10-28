@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import AdminLayout from './components/layout/admin'
+import Userlayout from './components/layout/user'
 import DashboardPage from './pages/admin/dashboard'
 import PortfoliosPage from './pages/admin/portfolios/Portfolio'
 import SkillsPage from './pages/admin/skills'
@@ -13,7 +14,10 @@ import ContactPage from './pages/user/contact/ContactPage'
 import UserHomePage from './pages/user/home/UserHomePage'
 import UserPortfolioPage from './pages/user/portfolio/UserPortfolioPage'
 import ResumePage from './pages/user/resume/ResumePage'
+import UserSkillsPage from './pages/user/skills/UserSkillsPage'
 import UserPanel from './pages/user/userpanel/UserPanel'
+// import 'bootstrap/dist/css/bootstrap. css';
+
 
 function App() {
   const { isAuthenticated } = useSelector((state) => state.auth)
@@ -21,8 +25,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <HomePage />} />
-        <Route>
-          <Route path='about' element={<AboutPage/>}/>
+        <Route path='/' element={<Userlayout/>}>
+          <Route path='userskills' element={<UserSkillsPage/>}/>
           <Route path='contact' element={<ContactPage/>}/>
           <Route path='userhome' element={<UserHomePage/>}/>
           <Route path='userportfolio' element={<UserPortfolioPage/>}/>
@@ -35,7 +39,7 @@ function App() {
               <Route path='/dashboard' element={<DashboardPage />} />
               <Route path='/skills' element={<SkillsPage />} />
               <Route path='/users' element={<UsersPage />} />
-              <Route path="portfolios" element={<PortfoliosPage />} />
+              <Route path="/portfolios" element={<PortfoliosPage />} />
             </Route>
           ) : null}
         <Route path='*' element={<Navigate to='/' />} />

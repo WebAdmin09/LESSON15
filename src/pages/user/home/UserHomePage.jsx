@@ -1,8 +1,9 @@
 
 const UserHomePage = () => {
   return (
-    <div>
-      
+    <div className="container1">
+      UserHomePage
+      lorem1000
     </div>
   )
 }
