@@ -31,19 +31,21 @@ const HomePage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const login = async () => {
-        try {
+        try {        
             let user = { username: usernamevalue, password: passwordvalue }
-            let { data } = await request.post('auth/login', user);
+            let { data } = await request.post('auth/login', user);  
             console.log(data)
             if (data.user.role === 'admin') {
                 navigate('/dashboard')
                 dispatch(controlAuthenticated(true))
                 Cookies.set(TOKEN, data.token)
                 message.success('You are Admin')
-            } else if(data.user.role === 'user'){
-                navigate('/skills')
-
+            } else if(data.user.role === 'client'){
+                window.location.href = '/about'
             } 
+            else if(data.user.role === 'user'){
+                window.location.href = '/userpanel'
+            }
             else {
                 message.error('You are not Admin')
             }

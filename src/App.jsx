@@ -8,6 +8,12 @@ import PortfoliosPage from './pages/admin/portfolios/Portfolio'
 import SkillsPage from './pages/admin/skills'
 import UsersPage from './pages/admin/users'
 import HomePage from './pages/front/HomePage'
+import AboutPage from './pages/user/about/AboutPage'
+import ContactPage from './pages/user/contact/ContactPage'
+import UserHomePage from './pages/user/home/UserHomePage'
+import UserPortfolioPage from './pages/user/portfolio/UserPortfolioPage'
+import ResumePage from './pages/user/resume/ResumePage'
+import UserPanel from './pages/user/userpanel/UserPanel'
 
 function App() {
   const { isAuthenticated } = useSelector((state) => state.auth)
@@ -15,6 +21,14 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <HomePage />} />
+        <Route>
+          <Route path='about' element={<AboutPage/>}/>
+          <Route path='contact' element={<ContactPage/>}/>
+          <Route path='userhome' element={<UserHomePage/>}/>
+          <Route path='userportfolio' element={<UserPortfolioPage/>}/>
+          <Route path='resume' element={<ResumePage/>}/>
+          <Route path="userpanel" element={<UserPanel />} />
+        </Route>
         {
           isAuthenticated ? (
             <Route path='/' element={<AdminLayout />}>
