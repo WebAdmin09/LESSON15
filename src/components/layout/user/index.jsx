@@ -5,11 +5,17 @@ import '../../../assets/scss/layouts/_sidebar.scss'
 import darklogo from '../../../assets/images/logos/dark-logo.svg'
 import user from '../../../assets/images/profile/user-1.jpg'
 import rocket from '../../../assets/images/backgrounds/rocket.png'
+import logout from '../../../assets/images/logout.svg'
 import { Link, Outlet } from 'react-router-dom'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import './userlayout.css'
 
 const Userlayout = () => {
+  const [isModal, setIsModal] = useState(false);
+
+  const opneModal = () =>{
+    setIsModal(!isModal)
+  }
   return (
     <Fragment>
     <div className='userlayout'>
@@ -40,19 +46,19 @@ const Userlayout = () => {
               </Link>
             </li>
             <li className="sidebar-item">
-              <Link className="sidebar-link" to="/contact" aria-expanded="false">
+              <Link className="sidebar-link" to="/education" aria-expanded="false">
                 <span>
                   <i className="ti ti-article"></i>
                 </span>
-                <span className="hide-menu">Contact</span>
+                <span className="hide-menu">Education</span>
               </Link>
             </li>
             <li className="sidebar-item">
-              <Link className="sidebar-link" to="/userhome" aria-expanded="false">
+              <Link className="sidebar-link" to="/experience" aria-expanded="false">
                 <span>
                   <i className="ti ti-home"></i>
                 </span>
-                <span className="hide-menu">Home</span>
+                <span className="hide-menu">Experience</span>
               </Link>
             </li>
             <li className="sidebar-item">
@@ -64,11 +70,11 @@ const Userlayout = () => {
               </Link>
             </li>
             <li className="sidebar-item">
-              <Link className="sidebar-link" to="/resume" aria-expanded="false">
+              <Link className="sidebar-link" to="/message" aria-expanded="false">
                 <span>
                   <i className="ti ti-file-description"></i>
                 </span>
-                <span className="hide-menu">Resume</span>
+                <span className="hide-menu">Messages</span>
               </Link>
             </li>
             <li className="nav-small-cap">
@@ -76,7 +82,7 @@ const Userlayout = () => {
               <span className="hide-menu">AUTH</span>
             </li>
             <li className="sidebar-item">
-              <Link className="sidebar-link" to="./authentication-login.html" aria-expanded="false">
+              <Link className="sidebar-link" to="/login" aria-expanded="false">
                 <span>
                   <i className="ti ti-login"></i>
                 </span>
@@ -84,7 +90,7 @@ const Userlayout = () => {
               </Link>
             </li>
             <li className="sidebar-item">
-              <Link className="sidebar-link" to="./authentication-register.html" aria-expanded="false">
+              <Link className="sidebar-link" to="/register" aria-expanded="false">
                 <span>
                   <i className="ti ti-user-plus"></i>
                 </span>
@@ -121,8 +127,29 @@ const Userlayout = () => {
               </a>
             </li>
           </ul>
+          <button
+          className='userbtn'
+          onClick={opneModal}
+           >
           <img className='user' src={user} alt="sacas" />
+          </button>
         </nav>
+        <div className='user__modal'
+      id={isModal ? 'usermodal' : ''}>
+        <button className='viewbtn'>
+        {/* <i className="fas fa-user-circle"></i> */}
+          <Link className='viewlink' to='/userhome'>
+           View Profile
+          </Link>
+          </button>
+        <button className='viewbtn'>
+        {/* <i className="fas fa-log-out"></i> */}
+          <Link className='viewlink' to='/login'>
+          <img className='logout' src={logout} alt="logout" />
+           Log Out
+          </Link>
+          </button>
+      </div>
       </header>
     </div>
   </div>

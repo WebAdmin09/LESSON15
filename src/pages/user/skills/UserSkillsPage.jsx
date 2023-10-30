@@ -177,7 +177,7 @@ const UserSkillsPage = () => {
           value={things.percent}
           onChange={handlechange}
            />
-           <button type='submit' className='modaladdbtn'>Add</button>
+           <button type='submit' className='modaladdbtn'>{select ? 'Save' : 'Add'}</button>
         </form>
       </div>  
     </div>   

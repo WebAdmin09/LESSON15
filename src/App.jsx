@@ -10,10 +10,12 @@ import SkillsPage from './pages/admin/skills'
 import UsersPage from './pages/admin/users'
 import HomePage from './pages/front/HomePage'
 import AboutPage from './pages/user/about/AboutPage'
-import ContactPage from './pages/user/contact/ContactPage'
+// import ContactPage from './pages/user/contact/ContactPage'
+import EducationPage from './pages/user/education/Education'
+import Experience from './pages/user/experience/Experience'
 import UserHomePage from './pages/user/home/UserHomePage'
+import Message from './pages/user/message/Message'
 import UserPortfolioPage from './pages/user/portfolio/UserPortfolioPage'
-import ResumePage from './pages/user/resume/ResumePage'
 import UserSkillsPage from './pages/user/skills/UserSkillsPage'
 import UserPanel from './pages/user/userpanel/UserPanel'
 // import 'bootstrap/dist/css/bootstrap. css';
@@ -25,13 +27,18 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <HomePage />} />
+        <Route path='/login' element={<HomePage/>}/>
         <Route path='/' element={<Userlayout/>}>
           <Route path='userskills' element={<UserSkillsPage/>}/>
-          <Route path='contact' element={<ContactPage/>}/>
-          <Route path='userhome' element={<UserHomePage/>}/>
+          <Route path='education' element={<EducationPage/>}/>
+          <Route path='experience' element={<Experience/>}/>
           <Route path='userportfolio' element={<UserPortfolioPage/>}/>
-          <Route path='resume' element={<ResumePage/>}/>
+          <Route path='message' element={<Message/>}/>
           <Route path="userpanel" element={<UserPanel />} />
+        </Route>
+        <Route>
+          <Route path="about" element={<AboutPage />} />
+          <Route path='userhome' element={<UserHomePage/>}/>
         </Route>
         {
           isAuthenticated ? (
